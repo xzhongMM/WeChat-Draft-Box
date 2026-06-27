@@ -34,7 +34,7 @@ export function ImageViewer({
   const showNext = activeIndex < images.length - 1
 
   return (
-    <div className="image-viewer" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div className="image-viewer" role="dialog" aria-modal="true" aria-label="Image viewer" onClick={onClose}>
       <header className="viewer-header">
         <button className="viewer-button" type="button" onClick={onClose}>
           Close
@@ -54,53 +54,13 @@ export function ImageViewer({
         >
           &lt;
         </button>
-        <div
-          className="viewer-scroll"
-          ref={scrollContainerRef}
-          onClick={onClose}
-          onPointerDown={(event) => {
-            const scrollContainer = scrollContainerRef.current
 
-            if (!scrollContainer) {
-              return
-            }
+        <img
+          className="viewer-image"
+          src={activeImage}
+          alt=""
+        />
 
-            panStartRef.current = {
-              isPanning: true,
-              scrollLeft: scrollContainer.scrollLeft,
-              scrollTop: scrollContainer.scrollTop,
-              x: event.clientX,
-              y: event.clientY,
-            }
-            scrollContainer.setPointerCapture(event.pointerId)
-          }}
-          onPointerMove={(event) => {
-            const scrollContainer = scrollContainerRef.current
-            const panStart = panStartRef.current
-
-            if (!scrollContainer || !panStart.isPanning) {
-              return
-            }
-
-            scrollContainer.scrollLeft = panStart.scrollLeft - (event.clientX - panStart.x)
-            scrollContainer.scrollTop = panStart.scrollTop - (event.clientY - panStart.y)
-          }}
-          onPointerUp={(event) => {
-            scrollContainerRef.current?.releasePointerCapture(event.pointerId)
-            panStartRef.current.isPanning = false
-          }}
-          onPointerCancel={(event) => {
-            scrollContainerRef.current?.releasePointerCapture(event.pointerId)
-            panStartRef.current.isPanning = false
-          }}
-        >
-          <img
-            src={activeImage}
-            alt=""
-            draggable={false}
-            onClick={(event) => event.stopPropagation()}
-          />
-        </div>
         <button
           className="viewer-nav next"
           type="button"

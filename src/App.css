@@ -1,6 +1,6 @@
 .draft-list-page,
 .draft-editor-page {
-  width: min(100%, 560px);
+  width: min(100%, 360px);
   margin: 0 auto;
   min-height: 100svh;
   background: var(--app-surface);
@@ -59,6 +59,13 @@ button {
   font-weight: 700;
 }
 
+.viewer-image {
+    max-width:65%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
 .primary-button,
 .new-draft-button {
   padding: 0 16px;
@@ -73,7 +80,7 @@ button {
 .text-button,
 .viewer-button {
   padding: 0 8px;
-  color: var(--text-h);
+  color: white;
   background: transparent;
 }
 
@@ -168,7 +175,8 @@ button {
 
 .caption-editor textarea {
   width: 100%;
-  min-height: 136px;
+  min-height: 56px;
+  max-height: 86px;
   box-sizing: border-box;
   resize: vertical;
   border: 0;
@@ -187,6 +195,8 @@ button {
 .image-grid {
   --grid-columns: 3;
   display: grid;
+  width: 100%;
+  max-width: 330px;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   gap: 5px;
 }
@@ -198,6 +208,7 @@ button {
 .image-tile,
 .add-image-tile {
   aspect-ratio: 1 / 1;
+  width: 100%;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -252,7 +263,8 @@ button {
   position: fixed;
   inset: 0;
   z-index: 20;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-template-rows: auto minmax(0, 1fr) auto;
   background: #060606;
   color: white;
@@ -266,28 +278,13 @@ button {
 
 .viewer-stage {
   position: relative;
-  min-height: 0;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   overflow: hidden;
-}
-
-.viewer-scroll {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  display: grid;
-  place-items: center;
-  overflow: auto;
-  padding: 36px 56px;
-  cursor: grab;
-  user-select: none;
-}
-
-.viewer-scroll img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  cursor: grab;
 }
 
 .viewer-nav {
@@ -406,10 +403,5 @@ button {
 
   .draft-card .image-grid {
     width: 92px;
-  }
-
-  .viewer-scroll {
-    padding: 28px 34px;
-    place-items: start center;
   }
 }
