@@ -147,7 +147,7 @@ button {
 
 .draft-card .image-grid {
   grid-row: span 2;
-  width: 104px;
+  width: 84px;
 }
 
 .draft-caption {
@@ -467,11 +467,7 @@ button {
   }
 
   .draft-card {
-    grid-template-columns: 92px minmax(0, 1fr);
+    grid-template-columns: 84px minmax(0, 1fr);
     padding-inline: 14px;
-  }
-
-  .draft-card .image-grid {
-    width: 92px;
   }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 interface CaptionEditorProps {
   value: string;
@@ -7,6 +8,7 @@ interface CaptionEditorProps {
 
 export function CaptionEditor({ value, onChange }: CaptionEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const textarea = textareaRef.current
@@ -26,7 +28,7 @@ export function CaptionEditor({ value, onChange }: CaptionEditorProps) {
         ref={textareaRef}
         value={value}
         rows={1}
-        placeholder="Say something..."
+        placeholder={t.captionDefault}
         onChange={(event) => onChange(event.target.value)}
       />
     </label>
