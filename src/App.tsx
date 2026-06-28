@@ -6,17 +6,17 @@ import { DraftListPage } from './pages/DraftListPage'
 
 function App() {
   const { drafts, getDraft, createDraft, saveDraft, deleteDraft } = useDrafts()
-  const [path, setPath] = useState(window.location.pathname)
+  const getPath = () => window.location.hash.slice(1) || "/";
+  const [path, setPath] = useState(getPath());
 
   useEffect(() => {
-    const handlePopState = () => setPath(window.location.pathname)
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
+    const handleHashChange = () => setPath(getPath());
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   function navigate(nextPath: string) {
-    window.history.pushState(null, '', nextPath)
-    setPath(nextPath)
+    window.location.hash = nextPath;
   }
 
   function handleCreateDraft() {
