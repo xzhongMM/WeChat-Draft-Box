@@ -1,3 +1,5 @@
+import { useLanguage } from "../context/LanguageContext";
+
 interface TopBarProps {
   onCancel: () => void;
   onDiscard: () => void;
@@ -5,7 +7,9 @@ interface TopBarProps {
   saveLabel?: string;
 }
 
-export function TopBar({ onCancel, onDiscard, onSave, saveLabel = 'Save Draft' }: TopBarProps) {
+export function TopBar({ onCancel, onDiscard, onSave, saveLabel = useLanguage().t.saveDraft }: TopBarProps) {
+  const { t } = useLanguage();
+
   return (
     <header className="top-bar">
       <button
@@ -13,7 +17,7 @@ export function TopBar({ onCancel, onDiscard, onSave, saveLabel = 'Save Draft' }
         type="button"
         onClick={onCancel}
       >
-          Cancel
+        {t.cancel}
       </button>
       <button className="primary-button" type="button" onClick={onSave}>
         {saveLabel}

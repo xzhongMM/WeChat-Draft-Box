@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useLanguage } from '../context/LanguageContext';
 
 interface ImageViewerProps {
   images: string[];
@@ -32,15 +33,15 @@ export function ImageViewer({
 
   const showPrevious = activeIndex > 0
   const showNext = activeIndex < images.length - 1
-
+  const { t } = useLanguage();
   return (
     <div className="image-viewer" role="dialog" aria-modal="true" aria-label="Image viewer">
       <header className="viewer-header">
         <button className="viewer-button" type="button" onClick={onClose}>
-          Close
+          {t.close}
         </button>
         <button className="viewer-button delete" type="button" onClick={() => setIsConfirmingDelete(true)}>
-          Delete
+          {t.delete}
         </button>
       </header>
 
@@ -87,11 +88,11 @@ export function ImageViewer({
       {isConfirmingDelete ? (
         <div className="confirm-backdrop" role="alertdialog" aria-modal="true" aria-label="Delete image">
           <div className="confirm-dialog">
-            <h2>Delete this image?</h2>
-            <p>This removes it from the draft.</p>
+            <h2>{t.deleteImage}</h2>
+            <p>{t.deleteImageDescription}</p>
             <div className="confirm-actions">
               <button type="button" className="viewer-button" onClick={() => setIsConfirmingDelete(false)}>
-                Cancel
+                {t.cancel}
               </button>
               <button
                 type="button"
@@ -101,7 +102,7 @@ export function ImageViewer({
                   onDelete(activeIndex)
                 }}
               >
-                Delete
+                {t.delete}
               </button>
             </div>
           </div>

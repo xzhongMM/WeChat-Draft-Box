@@ -4,6 +4,7 @@ import { ImageGrid } from '../components/ImageGrid'
 import { ImageViewer } from '../components/ImageViewer'
 import { TopBar } from '../components/TopBar'
 import type { Draft } from '../types/Draft'
+import { useLanguage } from '../context/LanguageContext'
 
 interface DraftEditorPageProps {
   draft: Draft;
@@ -85,6 +86,8 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
     })
   }
 
+  const { t } = useLanguage();
+
   return (
     <main className="draft-editor-page">
       <TopBar
@@ -102,7 +105,12 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
           onImageClick={setViewerIndex}
           onReorderImages={handleReorderImages}
         />
-        <p className="image-count">{workingDraft.images.length}/9 images</p>
+        <p className="image-count">{workingDraft.images.length}/9 {t.images}</p>
+      </section>
+
+      <section className="like-section">
+        <p className="like-text">♡ Mo</p>
+        <p className="comment-text"><span className="comment-user">Mo</span>: {t.comment}</p>
       </section>
 
       {viewerIndex !== null ? (
@@ -123,9 +131,9 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
           aria-label="Leave draft"
         >
           <div className="confirm-dialog">
-            <h2>Leave this draft?</h2>
+            <h2>{t.leaveDraft}</h2>
 
-            <p>Your unsaved changes will be lost.</p>
+            <p>{t.unsavedChanges}</p>
 
             <div className="confirm-actions vertical">
 
@@ -134,7 +142,7 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
                 className="viewer-button"
                 onClick={() => setIsConfirmingCancel(false)}
               >
-                Continue Editing
+                {t.continueEditing}
               </button>
 
               <button
@@ -145,7 +153,7 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
                   onCancelChanges()
                 }}
               >
-                Cancel Changes
+                {t.cancelChanges}
               </button>
 
               <button
@@ -156,7 +164,7 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
                   onDiscard(workingDraft.id)
                 }}
               >
-                Discard Draft
+                {t.discardDraft}
               </button>
 
             </div>
