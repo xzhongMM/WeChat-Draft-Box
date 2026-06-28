@@ -6,6 +6,12 @@ import { DraftListPage } from './pages/DraftListPage'
 
 function App() {
   const { drafts, getDraft, createDraft, saveDraft, deleteDraft } = useDrafts()
+  const redirected = sessionStorage.getItem("redirect");
+
+  if (redirected) {
+    sessionStorage.removeItem("redirect");
+    window.history.replaceState(null, "", redirected);
+  }
   const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   function getPath() {
