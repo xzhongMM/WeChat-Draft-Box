@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# 微信朋友圈草稿箱 WeChat Moments Draft Box
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[简体中文](#zh) | [English](#en)
+<a id="zh"></a>
+## 介绍
+帮助你管理多个朋友圈草稿的网页。随意创建，编辑，保存与管理多条朋友圈草稿，尽可能的还原了微信朋友圈的编辑体验。
 
-Currently, two official plugins are available:
+1.0版本可以流畅的在电脑上使用。此网页独立于微信程序，所有数据保存在设备本地（暂时不能把创建的草稿快速导入微信中，只是作为一个储存箱的功能存在）
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+支持**中文**与**英文**双语言切换。
 
-## React Compiler
+## 功能特色
+- 📝 创建并管理多个草稿
+- 🖼️ 每个草稿最多支持 9 张图片
+- 🔀 拖拽调整图片顺序
+- 🔍 点击图片进入全屏浏览
+- 🗑️ 删除图片前确认提示
+- 💾 保存草稿修改
+- ↩️ 可取消本次编辑或彻底删除草稿
+- 🌐 支持中英文界面切换
+- 📱 适配电脑与手机浏览器
+- 💻 纯前端实现，无需后端服务器
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技术栈
+React
+TypeScript
+Vite
+CSS
 
-## Expanding the ESLint configuration
+## 项目背景
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+微信朋友圈目前只能保存一个草稿，当需要准备多个朋友圈内容时体验较为不便。因此，本项目参考微信朋友圈的设计，实现了一个支持多草稿管理的编辑工具，在保持熟悉操作体验的同时，提高了内容创作的灵活性。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+--------------------------------
+<a id="en"></a>
+## About
+Because WeChat only supports saving one draft at a time, here's a simple tool to create and manage multiple post drafts. The app provides a familiar editing experience with a caption editor and up to 9 images arranged in a WeChat-style 3×3 grid. Drafts can be created, edited, reordered, saved, and revisited at any time. The interface also supports both English and Chinese. Version 1.0 is fully functional on computers, but a bit buggy on mobile devices. The site runs independently from the official WeChat app, everything is stored locally on your device.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Features
+- 📝 Create and manage multiple drafts
+- 🖼️ Upload up to 9 images per draft
+- 🔀 Drag-and-drop image reordering
+- 🔍 Full-screen image viewer
+- 🗑️ Delete images with confirmation
+- 💾 Save edits
+- ↩️ Cancel changes or permanently discard drafts
+- 🌐 English & Chinese language support
+- 📱 Responsive design for desktop and mobile devices
+- 💻 Runs entirely in the browser (no backend required)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Built With
+React
+TypeScript
+Vite
+CSS
 
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+## Motivation
+WeChat currently only allows one Moments draft at a time, making it inconvenient to prepare multiple posts simultaneously. This project recreates the familiar posting interface while providing a more flexible draft management system.
