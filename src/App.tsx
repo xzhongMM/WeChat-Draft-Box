@@ -6,17 +6,32 @@ import { DraftListPage } from './pages/DraftListPage'
 
 function App() {
   const { drafts, getDraft, createDraft, saveDraft, deleteDraft } = useDrafts()
-  const getPath = () => window.location.hash.slice(1) || "/";
+  const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+  function getPath() {
+    const pathname = window.location.pathname;
+
+    return pathname.startsWith(BASE)
+      ? pathname.slice(BASE.length) || "/"
+      : pathname;
+  }
   const [path, setPath] = useState(getPath());
 
   useEffect(() => {
-    const handleHashChange = () => setPath(getPath());
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    const handlePopState = () => setPath(getPath());
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, []);
 
   function navigate(nextPath: string) {
-    window.location.hash = nextPath;
+    const url = import.meta.env.BASE_URL + nextPath.replace(/^\//, "");
+
+    window.history.pushState(null, "", url);
+    setPath(nextPath);
   }
 
   function handleCreateDraft() {
