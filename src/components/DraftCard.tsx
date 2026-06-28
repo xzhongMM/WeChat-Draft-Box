@@ -10,7 +10,7 @@ interface DraftCardProps {
 function getCaptionPreview(caption: string, language: string) {
   const cleanCaption = caption.trim()
 
-  return cleanCaption || language === 'zh' ? '未命名草稿' : 'Untitled Draft'
+  return cleanCaption || (language === 'zh' ? '未命名草稿' : 'Untitled Draft')
 }
 
 function formatUpdatedAt(updatedAt: number, language: string) {
