@@ -1,7 +1,6 @@
 # 微信朋友圈草稿箱 WeChat Moments Draft Box
 
-[简体中文](#zh) | [English](#en)
-<a id="zh"></a>
+[English](#en)
 ## 介绍
 帮助你管理多个朋友圈草稿的网页。随意创建，编辑，保存与管理多条朋友圈草稿，尽可能的还原了微信朋友圈的编辑体验。
 
@@ -34,7 +33,7 @@ CSS
 --------------------------------
 <a id="en"></a>
 ## About
-Because WeChat only supports saving one draft at a time, here's a simple tool to create and manage multiple post drafts. The app provides a familiar editing experience with a caption editor and up to 9 images arranged in a WeChat-style 3×3 grid. Drafts can be created, edited, reordered, saved, and revisited at any time. The interface also supports both English and Chinese. Version 1.0 is fully functional on computers, but a bit buggy on mobile devices. The site runs independently from the official WeChat app, everything is stored locally on your device.
+Because WeChat only supports saving one draft at a time, here's a simple tool to create and manage multiple post drafts. The app provides a familiar editing experience as the WeChat app. Drafts can be created, edited, saved, and revisited at any time. The interface also supports both **English** and **Chinese**. Version 1.0 is fully functional on computers, but a bit buggy on mobile devices. The site runs independently from the official WeChat app, everything is stored locally on your device.
 
 ## Features
 - 📝 Create and manage multiple drafts
