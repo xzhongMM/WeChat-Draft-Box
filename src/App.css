@@ -56,7 +56,11 @@ button {
   min-height: 40px;
   border: 0;
   border-radius: 8px;
-  font-weight: 700;
+  font-weight: normal;
+}
+
+.viewer-button.cancel{
+  color: rgb(225, 202, 29);
 }
 
 .viewer-image {
@@ -87,6 +91,7 @@ button {
 .text-button.danger,
 .viewer-button.delete {
   color: var(--danger);
+  font-weight: normal;
 }
 
 .draft-list {
@@ -175,17 +180,22 @@ button {
 
 .caption-editor textarea {
   width: 100%;
-  min-height: 56px;
-  max-height: 86px;
+  min-height: 46px;
   box-sizing: border-box;
-  resize: vertical;
+  resize: none;
   border: 0;
-  border-bottom: 1px solid var(--border-strong);
   border-radius: 0;
   padding: 10px 0 16px;
   color: var(--text-h);
   background: transparent;
   outline: none;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.caption-editor textarea::-webkit-scrollbar {
+    display: none;
 }
 
 .caption-editor textarea:focus {
@@ -198,11 +208,11 @@ button {
   width: 100%;
   max-width: 330px;
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-  gap: 5px;
+  gap: 3px;
 }
 
 .editor-grid {
-  margin-top: 18px;
+  margin-top: 6px;
 }
 
 .image-tile,
@@ -213,7 +223,6 @@ button {
   place-items: center;
   overflow: hidden;
   border: 0;
-  border-radius: 4px;
   background: var(--tile-bg);
 }
 
@@ -272,6 +281,9 @@ button {
 
 .viewer-header {
   display: flex;
+  width: 50%;
+  align-items: center;
+  align-self: center;
   justify-content: space-between;
   padding: max(12px, env(safe-area-inset-top)) 16px 12px;
 }
@@ -279,7 +291,8 @@ button {
 .viewer-stage {
   position: relative;
   flex: 1;
-
+  width: 50%;
+  align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,7 +306,7 @@ button {
   width: 44px;
   height: 56px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 16px;
   color: white;
   background: rgba(255, 255, 255, 0.12);
   font-size: 40px;

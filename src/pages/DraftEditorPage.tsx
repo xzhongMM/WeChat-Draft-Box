@@ -9,6 +9,7 @@ interface DraftEditorPageProps {
   draft: Draft;
   onSave: (draft: Draft) => void;
   onDiscard: (id: string) => void;
+  onCancelChanges: () => void;
 }
 
 function readFileAsDataUrl(file: File) {
@@ -20,9 +21,10 @@ function readFileAsDataUrl(file: File) {
   })
 }
 
-export function DraftEditorPage({ draft, onSave, onDiscard }: DraftEditorPageProps) {
+export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: DraftEditorPageProps) {
   const [workingDraft, setWorkingDraft] = useState(draft)
   const [viewerIndex, setViewerIndex] = useState<number | null>(null)
+  const [isConfirmingCancel, setIsConfirmingCancel] = useState(false)
 
   useEffect(() => {
     setWorkingDraft(draft)
@@ -86,6 +88,7 @@ export function DraftEditorPage({ draft, onSave, onDiscard }: DraftEditorPagePro
   return (
     <main className="draft-editor-page">
       <TopBar
+        onCancel={() => setIsConfirmingCancel(true)}
         onDiscard={() => onDiscard(workingDraft.id)}
         onSave={handleSave}
       />
@@ -110,6 +113,55 @@ export function DraftEditorPage({ draft, onSave, onDiscard }: DraftEditorPagePro
           onDelete={handleDeleteImage}
           onSelect={setViewerIndex}
         />
+      ) : null}
+
+      {isConfirmingCancel ? (
+        <div
+          className="confirm-backdrop"
+          role="alertdialog"
+          aria-modal="true"
+          aria-label="Leave draft"
+        >
+          <div className="confirm-dialog">
+            <h2>Leave this draft?</h2>
+
+            <p>Your unsaved changes will be lost.</p>
+
+            <div className="confirm-actions vertical">
+
+              <button
+                type="button"
+                className="viewer-button"
+                onClick={() => setIsConfirmingCancel(false)}
+              >
+                Continue Editing
+              </button>
+
+              <button
+                type="button"
+                className="viewer-button cancel"
+                onClick={() => {
+                  setIsConfirmingCancel(false)
+                  onCancelChanges()
+                }}
+              >
+                Cancel Changes
+              </button>
+
+              <button
+                type="button"
+                className="viewer-button delete"
+                onClick={() => {
+                  setIsConfirmingCancel(false)
+                  onDiscard(workingDraft.id)
+                }}
+              >
+                Discard Draft
+              </button>
+
+            </div>
+          </div>
+        </div>
       ) : null}
     </main>
   )

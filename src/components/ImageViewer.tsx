@@ -34,7 +34,7 @@ export function ImageViewer({
   const showNext = activeIndex < images.length - 1
 
   return (
-    <div className="image-viewer" role="dialog" aria-modal="true" aria-label="Image viewer" onClick={onClose}>
+    <div className="image-viewer" role="dialog" aria-modal="true" aria-label="Image viewer">
       <header className="viewer-header">
         <button className="viewer-button" type="button" onClick={onClose}>
           Close

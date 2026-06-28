@@ -24,6 +24,11 @@ function App() {
     navigate(`/draft/${draft.id}`)
   }
 
+  function handleCancelChanges() {
+    // Throw away local edits
+    navigate("/")
+  }
+
   const activeDraftId = useMemo(() => {
     const match = path.match(/^\/draft\/(.+)$/)
     return match?.[1]
@@ -42,6 +47,9 @@ function App() {
         onDiscard={(id) => {
           deleteDraft(id)
           navigate('/')
+        }}
+        onCancelChanges={() => {
+          navigate("/")
         }}
       />
     )
