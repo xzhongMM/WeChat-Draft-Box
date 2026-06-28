@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useLanguage } from '../context/LanguageContext';
 
 interface ImageViewerProps {
@@ -18,14 +18,6 @@ export function ImageViewer({
 }: ImageViewerProps) {
   const activeImage = images[activeIndex]
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-  const panStartRef = useRef({
-    isPanning: false,
-    scrollLeft: 0,
-    scrollTop: 0,
-    x: 0,
-    y: 0,
-  })
 
   if (!activeImage) {
     return null

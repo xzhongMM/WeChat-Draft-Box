@@ -2,12 +2,11 @@ import { useLanguage } from "../context/LanguageContext";
 
 interface TopBarProps {
   onCancel: () => void;
-  onDiscard: () => void;
   onSave: () => void;
   saveLabel?: string;
 }
 
-export function TopBar({ onCancel, onDiscard, onSave, saveLabel = useLanguage().t.saveDraft }: TopBarProps) {
+export function TopBar({ onCancel, onSave, saveLabel = useLanguage().t.saveDraft }: TopBarProps) {
   const { t } = useLanguage();
 
   return (

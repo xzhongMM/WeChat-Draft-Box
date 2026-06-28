@@ -92,7 +92,6 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
     <main className="draft-editor-page">
       <TopBar
         onCancel={() => setIsConfirmingCancel(true)}
-        onDiscard={() => onDiscard(workingDraft.id)}
         onSave={handleSave}
       />
 
