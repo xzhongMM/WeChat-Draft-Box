@@ -1,6 +1,6 @@
 import type { Draft } from "../types/Draft";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://wechat-draft-box.onrender.com";
 
 export async function getDrafts(): Promise<Draft[]> {
     const response = await fetch(`${API_URL}/drafts`);
