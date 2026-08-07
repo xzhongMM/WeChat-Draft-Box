@@ -11,6 +11,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "multer": "^2.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
@@ -28,5 +33,18 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.61.0",
     "vite": "^8.1.0"
-  }
+  },
+  "description": "[English](#en)\r ## 介绍\r 帮助你管理多个朋友圈草稿的网页。随意创建，编辑，保存与管理多条朋友圈草稿，尽可能的还原了微信朋友圈的编辑体验。",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xzhongMM/WeChat-Draft-Box.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xzhongMM/WeChat-Draft-Box/issues"
+  },
+  "homepage": "https://github.com/xzhongMM/WeChat-Draft-Box#readme"
 }

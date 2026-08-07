@@ -43,9 +43,8 @@ export function DraftCard({ draft, onOpen }: DraftCardProps) {
   const { t, language } = useLanguage();
 
   return (
-    <button
+    <div
       className={`draft-card ${draft.images.length === 0 ? 'without-images' : ''}`}
-      type="button"
       onClick={onOpen}
     >
       {draft.images.length > 0 ? <ImageGrid images={draft.images} mode="preview" /> : null}
@@ -54,6 +53,6 @@ export function DraftCard({ draft, onOpen }: DraftCardProps) {
         {draft.images.length} {draft.images.length === 1 ? t.image : t.images} -{' '}
         {formatUpdatedAt(draft.updatedAt, language)}
       </span>
-    </button>
+    </div>
   )
 }

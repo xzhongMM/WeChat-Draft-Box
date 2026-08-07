@@ -5,6 +5,7 @@ import { ImageViewer } from '../components/ImageViewer'
 import { TopBar } from '../components/TopBar'
 import type { Draft } from '../types/Draft'
 import { useLanguage } from '../context/LanguageContext'
+import { uploadImages, removeImage } from "../utils/api";
 
 interface DraftEditorPageProps {
   draft: Draft;
@@ -13,22 +14,15 @@ interface DraftEditorPageProps {
   onCancelChanges: () => void;
 }
 
-function readFileAsDataUrl(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', () => resolve(String(reader.result)))
-    reader.addEventListener('error', () => reject(reader.error))
-    reader.readAsDataURL(file)
-  })
-}
-
 export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: DraftEditorPageProps) {
   const [workingDraft, setWorkingDraft] = useState(draft)
   const [viewerIndex, setViewerIndex] = useState<number | null>(null)
   const [isConfirmingCancel, setIsConfirmingCancel] = useState(false)
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
 
   useEffect(() => {
     setWorkingDraft(draft)
+    setUploadedImages([])
   }, [draft])
 
   const remainingSlots = useMemo(() => 9 - workingDraft.images.length, [workingDraft.images.length])
@@ -38,20 +32,40 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
   }
 
   async function handleAddImages(files: FileList) {
-    const availableFiles = Array.from(files).slice(0, remainingSlots)
+    const availableFiles = Array.from(files).slice(0, remainingSlots);
 
     if (availableFiles.length === 0) {
-      return
+      return;
     }
 
-    const imageUrls = await Promise.all(availableFiles.map(readFileAsDataUrl))
+    const imageUrls = await uploadImages(availableFiles);
+
+    setUploadedImages((currentImages) => [
+      ...currentImages,
+      ...imageUrls,
+    ]);
+
     setWorkingDraft((currentDraft) => ({
       ...currentDraft,
       images: [...currentDraft.images, ...imageUrls].slice(0, 9),
-    }))
+    }));
   }
 
-  function handleSave() {
+  async function cleanupUploadedImages() {
+    await Promise.all(
+      uploadedImages.map((image) => removeImage(image))
+    )
+  }
+
+  async function handleSave() {
+    const imagesToDelete = uploadedImages.filter(
+      (image) => !workingDraft.images.includes(image)
+    )
+
+    await Promise.all(
+      imagesToDelete.map((image) => removeImage(image))
+    )
+
     onSave(workingDraft)
   }
 
@@ -147,8 +161,9 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
               <button
                 type="button"
                 className="viewer-button cancel"
-                onClick={() => {
+                onClick={async () => {
                   setIsConfirmingCancel(false)
+                  await cleanupUploadedImages()
                   onCancelChanges()
                 }}
               >
@@ -158,8 +173,9 @@ export function DraftEditorPage({ draft, onSave, onDiscard, onCancelChanges }: D
               <button
                 type="button"
                 className="viewer-button delete"
-                onClick={() => {
+                onClick={async () => {
                   setIsConfirmingCancel(false)
+                  await cleanupUploadedImages()
                   onDiscard(workingDraft.id)
                 }}
               >

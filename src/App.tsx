@@ -3,10 +3,17 @@ import { useEffect, useMemo, useState } from 'react'
 import { useDrafts } from './hooks/useDrafts'
 import { DraftEditorPage } from './pages/DraftEditorPage'
 import { DraftListPage } from './pages/DraftListPage'
+import { getDrafts } from './utils/api'
 
 function App() {
   const { drafts, getDraft, createDraft, saveDraft, deleteDraft } = useDrafts()
   const redirected = sessionStorage.getItem("redirect");
+
+  useEffect(() => {
+    getDrafts().then(data => {
+        console.log(data);
+    });
+  }, []);
 
   if (redirected) {
     sessionStorage.removeItem("redirect");
@@ -40,8 +47,8 @@ function App() {
     setPath(nextPath);
   }
 
-  function handleCreateDraft() {
-    const draft = createDraft()
+  async function handleCreateDraft() {
+    const draft = await createDraft()
     navigate(`/draft/${draft.id}`)
   }
 

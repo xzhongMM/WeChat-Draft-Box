@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Draft } from '../types/Draft'
-import { loadDrafts, saveDrafts } from '../utils/storage'
+import { getDrafts, createDraft as apiCreateDraft, updateDraft as apiUpdateDraft, removeDraft } from "../utils/api";
 
 function createId() {
   return `draft-${Date.now()}-${crypto.randomUUID?.() ?? Math.random().toString(16).slice(2)}`
@@ -19,11 +19,16 @@ function createBlankDraft(): Draft {
 }
 
 export function useDrafts() {
-  const [drafts, setDrafts] = useState<Draft[]>(() => loadDrafts())
+  const [drafts, setDrafts] = useState<Draft[]>([]);
 
   useEffect(() => {
-    saveDrafts(drafts)
-  }, [drafts])
+    async function loadServerDrafts() {
+        const serverDrafts = await getDrafts();
+        setDrafts(serverDrafts);
+    }
+
+    loadServerDrafts();
+  }, []);
 
   const sortedDrafts = useMemo(
     () => [...drafts].sort((a, b) => b.updatedAt - a.updatedAt),
@@ -37,35 +42,42 @@ export function useDrafts() {
     [drafts],
   )
 
-  const createDraft = useCallback(() => {
-    const draft = createBlankDraft()
-    setDrafts((currentDrafts) => [draft, ...currentDrafts])
-    return draft
-  }, [])
+  const createDraft = useCallback(async () => {
+    const draft = createBlankDraft();
 
-  const saveDraft = useCallback((draft: Draft) => {
-    const draftToSave = {
-      ...draft,
-      caption: draft.caption.trimStart(),
-      images: draft.images.slice(0, 9),
-      updatedAt: Date.now(),
-    }
+    await apiCreateDraft(draft);
 
-    setDrafts((currentDrafts) => {
-      const exists = currentDrafts.some((currentDraft) => currentDraft.id === draftToSave.id)
-      return exists
-        ? currentDrafts.map((currentDraft) =>
-            currentDraft.id === draftToSave.id ? draftToSave : currentDraft,
-          )
-        : [draftToSave, ...currentDrafts]
-    })
+    setDrafts((current) => [
+        draft,
+        ...current
+    ]);
 
-    return draftToSave
-  }, [])
+    return draft;
+  }, []);
 
-  const deleteDraft = useCallback((id: string) => {
-    setDrafts((currentDrafts) => currentDrafts.filter((draft) => draft.id !== id))
-  }, [])
+  const saveDraft = useCallback(async (draft: Draft) => {
+    const savedDraft = await apiUpdateDraft(draft);
+
+    setDrafts((current) =>
+      current.map((item) =>
+        item.id === savedDraft.id
+          ? savedDraft
+          : item
+        )
+    );
+
+    return savedDraft;
+  }, []);
+
+  const deleteDraft = useCallback(async (id:string) => {
+    await removeDraft(id);
+
+    setDrafts((current) =>
+        current.filter(
+            draft => draft.id !== id
+        )
+    );
+  }, []);
 
   return {
     drafts: sortedDrafts,
