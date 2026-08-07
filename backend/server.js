@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 3000;
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: (req, file, cb) => {
@@ -185,6 +185,6 @@ app.delete("/images", (req, res) => {
   });
 });
 
-app.listen(PORT, ()=>{
-    console.log(`Server running on http://localhost:${PORT}`);
-})
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
