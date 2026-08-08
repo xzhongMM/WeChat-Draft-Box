@@ -54,17 +54,17 @@
 
 ## 架构
 
-React + TypeScript 
-    │ 
-    │ HTTP requests 
-    ▼ 
-Express REST API 
-    │ 
-    ├── SQLite 
-    │       └── Draft metadata 
-    │ 
-    └── Multer 
-            └── Uploaded images
+React + TypeScript \
+&ensp;&ensp;&ensp;&ensp;│ \
+&ensp;&ensp;&ensp;&ensp;│ HTTP requests \
+&ensp;&ensp;&ensp;&ensp;▼ \
+Express REST API \
+&ensp;&ensp;&ensp;&ensp;│ \
+&ensp;&ensp;&ensp;&ensp;├── SQLite \
+&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└── Draft metadata \
+&ensp;&ensp;&ensp;&ensp;│ \
+&ensp;&ensp;&ensp;&ensp;└── Multer \
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└── Uploaded images
 
 前端负责用户界面、编辑状态和用户交互；Express 后端通过 REST API 处理草稿的创建、读取、更新和删除，并使用 SQLite 保存草稿数据。
 
@@ -114,17 +114,17 @@ The interface supports both **English** and **Chinese** and is designed for desk
 - Multer
 
 ## Architecture
-React + TypeScript
-       │
-       │ HTTP requests
-       ▼
-Express REST API
-       │
-       ├── SQLite
-       │     └── Draft metadata
-       │
-       └── Multer
-             └── Uploaded images
+React + TypeScript\
+&ensp;&ensp;&ensp;&ensp;│\
+&ensp;&ensp;&ensp;&ensp;│ HTTP requests\
+&ensp;&ensp;&ensp;&ensp;▼\
+Express REST API\
+&ensp;&ensp;&ensp;&ensp;│\
+&ensp;&ensp;&ensp;&ensp;├── SQLite\
+&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└── Draft metadata\
+&ensp;&ensp;&ensp;&ensp;│\
+&ensp;&ensp;&ensp;&ensp;└── Multer\
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└── Uploaded images
 
 The React frontend handles the user interface, editing state, and user interactions. The Express backend exposes REST API endpoints for creating, retrieving, updating, and deleting drafts, while SQLite provides persistent storage for draft metadata.
 
